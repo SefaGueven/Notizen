@@ -2,6 +2,8 @@
 // notizen anzeigen lassen
 
 let notes =[ 'Banana', 'Rasen'];
+
+let trashNotes=[];
 // --> wann werden Sie angezeigt?
    
 function renderNotes(){
@@ -15,8 +17,37 @@ function renderNotes(){
   }
 }
 
+
+function renderTrashNotes(){
+
+  let trashContentRef = document.getElementById('trash_content')
+    trashContentRef.innerHTML = "" ;
+  for (let indexTrashNote = 0; indexTrashNote < trashNotes.length; indexTrashNote++) {
+
+      trashContentRef.innerHTML += getTrashNoteTemplate(indexTrashNote);
+  }
+}
+
+function renderPushTrashNotes(){
+
+  let trashPushContentRef = document.getElementById('trash_content')
+    trashPushContentRef.innerHTML = "" ;
+  for (let indexPushTrashNote = 0; indexPushTrashNote < trashNotes.length; indexPushTrashNote++) {
+
+      indexPushTrashNote.innerHTML += getPushTrashNoteTemplate(indexPushTrashNote);
+  }
+}
+
+
 function getnoteTemplate(indexNote) {
-    return `<p>- ${notes[indexNote]}<button onclick="deleteNote(${indexNote})">X</button></p>`;
+    return `<p>- ${notes[indexNote]}<button onclick="pushToTrashNote(${indexNote})">X</button></p>`;
+}
+
+function getTrashNoteTemplate(indexTrashNote) {
+    return `<p>- ${trashNotes[indexTrashNote]}<button onclick="deleteNote(${indexTrashNote})">X</button></p>`;
+}
+function getPushTrashNoteTemplate(indexPushTrashNote) {
+    return `<p>- ${trashNotes[indexPushTrashNote]}<button onclick="deleteNote(${indexPushTrashNote})">X</button></p>`;
 }
 
 // notizen hinzufügen
@@ -28,16 +59,24 @@ function addNote(){
 
 notes.push(noteInput);                                    //eingabe denn Notizen hinzufügen 
 
-renderNotes();                        // eingabe anzeigen lassen
+renderNotes();                                           // eingabe anzeigen lassen
 
 noteInputRef.value = "";
 
 
 }
-// notizen löschen
+// notizen löschen    // notizen archivieren
 
-function deleteNote(indexNote) {
-  notes.splice(indexNote, 1,);
-  renderNotes();
+function pushToTrashNote(indexNote) {
+  let trashNote = notes.splice(indexNote, 1,);
+  trashNotes.push(trashNote);
+  
+  renderNotes(); //Anzeigen/rendern von Notizen
+  renderTrashNotes(); //Anzeigen/render von gelöschenen Notizen
+
 }
-// notizen archivieren
+
+function deleteNote(indexPushTrashNote) {
+  trashNotes.splice(indexPushTrashNote, 1,);
+  renderPushTrashNotes();
+}
