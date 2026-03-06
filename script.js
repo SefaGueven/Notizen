@@ -50,30 +50,31 @@ function getPushTrashNoteTemplate(indexPushTrashNote) {
     return `<p>- ${trashNotes[indexPushTrashNote]}<button onclick="deleteNote(${indexPushTrashNote})">X</button></p>`;
 }
 
-// notizen hinzufügen
 
-function addNote(){
+
+function addNote(){                                                 // notizen hinzufügen
   let noteInputRef = document.getElementById('note_input') ;
-  let noteInput = noteInputRef.value;                       //eingabe auslesen
+  let noteInput = noteInputRef.value;                               //eingabe auslesen
 
 
-notes.push(noteInput);                                    //eingabe denn Notizen hinzufügen 
+notes.push(noteInput);                                             //eingabe denn Notizen hinzufügen 
 
-renderNotes();                                           // eingabe anzeigen lassen
+renderNotes();                                                    // eingabe anzeigen lassen
 
 noteInputRef.value = "";
 
-
 }
-// notizen löschen    // notizen archivieren
 
-function pushToTrashNote(indexNote) {
+
+function pushToTrashNote(indexNote) {                                 // notizen löschen    // notizen archivieren
   let trashNote = notes.splice(indexNote, 1,);
-  trashNotes.push(trashNote);
-  let notesTitleTrash= notesTitles.splice(indexNote, 1,);
-  trashNotes.push(notesTitleTrash);
-  renderNotes(); //Anzeigen/rendern von Notizen
-  renderTrashNotes(); //Anzeigen/render von gelöschenen Notizen
+  trashNotes.push(trashNote[0]);
+  
+  let trashNotesTitle= notesTitles.splice(indexNote, 1,);
+  notesTitleTrash.push(trashNotesTitle[0]);
+
+  renderNotes();                                               //Anzeigen/rendern von Notizen
+  renderTrashNotes();                                          //Anzeigen/render von gelöschenen Notizen
 
 }
 function getPushTrashNoteTemplate(indexPushTrashNote) {
