@@ -1,9 +1,10 @@
 
 // notizen anzeigen lassen
-
+let notesTitles =[ 'Frucht', 'Arbeit'];
 let notes =[ 'Banana', 'Rasen'];
 
 let trashNotes=[];
+let notesTitleTrash=[];
 // --> wann werden Sie angezeigt?
    
 function renderNotes(){
@@ -40,11 +41,10 @@ function renderPushTrashNotes(){
 
 
 function getnoteTemplate(indexNote) {
-    return `<p>- ${notes[indexNote]}<button onclick="pushToTrashNote(${indexNote})">X</button></p>`;
+    return `<p>- title: ${notesTitles[indexNote]} >>> ${notes[indexNote]} <button onclick="pushToTrashNote(${indexNote})">X</button></p>`;
 }
-
 function getTrashNoteTemplate(indexTrashNote) {
-    return `<p>- ${trashNotes[indexTrashNote]}<button onclick="deleteNote(${indexTrashNote})">X</button></p>`;
+    return `<p>-title: ${notesTitleTrash[indexTrashNote]} >>> ${trashNotes[indexTrashNote]}<button onclick="deleteNote(${indexTrashNote})">X</button></p>`;
 }
 function getPushTrashNoteTemplate(indexPushTrashNote) {
     return `<p>- ${trashNotes[indexPushTrashNote]}<button onclick="deleteNote(${indexPushTrashNote})">X</button></p>`;
@@ -70,10 +70,14 @@ noteInputRef.value = "";
 function pushToTrashNote(indexNote) {
   let trashNote = notes.splice(indexNote, 1,);
   trashNotes.push(trashNote);
-  
+  let notesTitleTrash= notesTitles.splice(indexNote, 1,);
+  trashNotes.push(notesTitleTrash);
   renderNotes(); //Anzeigen/rendern von Notizen
   renderTrashNotes(); //Anzeigen/render von gelöschenen Notizen
 
+}
+function getPushTrashNoteTemplate(indexPushTrashNote) {
+    return `<p>- ${trashNotes[indexPushTrashNote]}<button onclick="deleteNote(${indexPushTrashNote})">X</button></p>`;
 }
 
 function deleteNote(indexPushTrashNote) {
