@@ -27,7 +27,10 @@ function saveToLocalStorage() {
 
 function getFromLocalStorage() {                                    
     let myArr = JSON.parse(localStorage.getItem("myData"));       // "parse" wandelt den String wieder zurück ins Array.
+   
+   if (myArr){                                                  //Nur wenn etwas in myArr drin ist, mache den Code
     myData = myArr;
+}
     
 }
 
