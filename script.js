@@ -10,6 +10,8 @@ let notesTitleTrash=[];
 function renderNotes(){
  //   defineren wo sie angezeigen sind
 
+   getFromLocalStorage();
+
   let contentRef = document.getElementById('content')
     contentRef.innerHTML = "" ;
   for (let indexNote = 0; indexNote < notes.length; indexNote++) {
@@ -46,9 +48,7 @@ function getnoteTemplate(indexNote) {
 function getTrashNoteTemplate(indexTrashNote) {
     return `<p>-title: ${notesTitleTrash[indexTrashNote]} >>> ${trashNotes[indexTrashNote]}<button onclick="deleteNote(${indexTrashNote})">X</button></p>`;
 }
-function getPushTrashNoteTemplate(indexPushTrashNote) {
-    return `<p>- ${trashNotes[indexPushTrashNote]}<button onclick="deleteNote(${indexPushTrashNote})">X</button></p>`;
-}
+
 
 
 
@@ -59,12 +59,27 @@ function addNote(){                                                 // notizen h
 
 notes.push(noteInput);                                             //eingabe denn Notizen hinzufügen 
 
+saveToLocalStorage();
+
 renderNotes();                                                    // eingabe anzeigen lassen
 
 noteInputRef.value = "";
 
 }
+function addNoteTitle(){                                                 // notizen hinzufügen
+  let noteInputRef = document.getElementById('title_input') ;
+  let noteInput = noteInputRef.value;                               //eingabe auslesen
 
+
+notesTitles.push(noteInput);                                             //eingabe denn Notizen hinzufügen 
+
+saveToLocalStorage();
+
+renderNotes();                                                    // eingabe anzeigen lassen
+
+noteInputRef.value = "";
+
+}
 
 function pushToTrashNote(indexNote) {                                 // notizen löschen    // notizen archivieren
   let trashNote = notes.splice(indexNote, 1,);
@@ -77,11 +92,19 @@ function pushToTrashNote(indexNote) {                                 // notizen
   renderTrashNotes();                                          //Anzeigen/render von gelöschenen Notizen
 
 }
-function getPushTrashNoteTemplate(indexPushTrashNote) {
-    return `<p>- ${trashNotes[indexPushTrashNote]}<button onclick="deleteNote(${indexPushTrashNote})">X</button></p>`;
-}
-
 function deleteNote(indexPushTrashNote) {
   trashNotes.splice(indexPushTrashNote, 1,);
+  renderNotes();
   renderPushTrashNotes();
 }
+function saveToLocalStorage() {
+    localStorage.setItem("notes", JSON.stringify(notes));     // "stringify" wandelt ein Objekt oder Datenstruktur in einen Text im JSON-Format um.Stringify wandelt hier Array in String um.
+    localStorage.setItem("notesTitles", JSON.stringify(notesTitles));
+}                              
+function getFromLocalStorage() {                                    
+    let myArr = JSON.parse(localStorage.getItem("notes"));       // "parse" wandelt den String wieder zurück ins Array.
+   
+   if (myArr){                                                  //Nur wenn etwas in myArr drin ist, mache den Code
+    notes = myArr;
+}
+  }
