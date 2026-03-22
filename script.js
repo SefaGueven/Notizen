@@ -3,8 +3,11 @@
 let notesTitles =[ 'Frucht', 'Arbeit'];
 let notes =[ 'Banana', 'Rasen'];
 
-let trashNotes=[];
-let notesTitleTrash=[];
+let trashNotes = [];
+let notesTitleTrash = [];
+
+let archivNotesTitles = [];
+let archivNotes = [];
 // --> wann werden Sie angezeigt?
    
 function renderNotes(){
@@ -14,55 +17,51 @@ function renderNotes(){
 
   let contentRef = document.getElementById('content')
     contentRef.innerHTML = "" ;
-  for (let indexNote = 0; indexNote < notes.length; indexNote++) {
 
+  for (let indexNote = 0; indexNote < notes.length; indexNote++) {
       contentRef.innerHTML += getnoteTemplate(indexNote);
   }
 }
 
+function renderArchivNotes(){
+  let archivContentRef = document.getElementById('archiv_content')
+  archivContentRef.innerHTML = "";
+
+  for (let indexArchivNote = 0; indexArchivNote < archivNotes.length; indexArchivNote++) {
+    archivContentRef.innerHTML += getArchivNoteTemplate(indexArchivNote);
+    
+  }
+}
 
 function renderTrashNotes(){
-
   let trashContentRef = document.getElementById('trash_content')
     trashContentRef.innerHTML = "" ;
-  for (let indexTrashNote = 0; indexTrashNote < trashNotes.length; indexTrashNote++) {
 
+  for (let indexTrashNote = 0; indexTrashNote < trashNotes.length; indexTrashNote++) {
       trashContentRef.innerHTML += getTrashNoteTemplate(indexTrashNote);
   }
 }
 
-function renderPushTrashNotes(){
-
-  let trashPushContentRef = document.getElementById('trash_content')
-    trashPushContentRef.innerHTML = "" ;
-  for (let indexPushTrashNote = 0; indexPushTrashNote < trashNotes.length; indexPushTrashNote++) {
-
-      indexPushTrashNote.innerHTML += getPushTrashNoteTemplate(indexPushTrashNote);
-  }
-}
-
-
-function getnoteTemplate(indexNote) {
-    return `<p>- title: ${notesTitles[indexNote]} >>> ${notes[indexNote]} <button onclick="pushToTrashNote(${indexNote})">X</button></p>`;
-}
-function getTrashNoteTemplate(indexTrashNote) {
-    return `<p>-title: ${notesTitleTrash[indexTrashNote]} >>> ${trashNotes[indexTrashNote]}<button onclick="deleteNote(${indexTrashNote})">X</button></p>`;
-}
-
-
-
 
 function addNote(){                                                 // notizen hinzufügen
   let noteInputRef = document.getElementById('note_input') ;
+  let noteTitleInputRef = document.getElementById('note_input_title') ;
+
   let noteInput = noteInputRef.value;                               //eingabe auslesen
+  let noteTitle = noteTitleInputRef.value;
 
+  if (noteInput == ""|| noteTitle == "") {
+    return
+  }
 
-notes.push(noteInput);                                             //eingabe denn Notizen hinzufügen 
+notes.push(noteInput);     
+notesTitles.push(noteTitle);                                        //eingabe Notizen hinzufügen 
 
 saveToLocalStorage();
 
-renderNotes();                                                    // eingabe anzeigen lassen
-
+renderNotes(); 
+                                                   // eingabe anzeigen lassen
+noteTitleInputRef.value = "";
 noteInputRef.value = "";
 
 }
