@@ -5,7 +5,7 @@ function getNoteTemplate(indexNote) {
         <h3>${notesTitles[indexNote]}</h3>
         <p>${notes[indexNote]}</p>
     <div>
-    <button onclick="noteToTrash(${indexNote})" class="btn">X</button>;
+    <button onclick="pushToTrashNote(${indexNote})" class="btn">X</button>;
     <button onclick="noteToArchiv(${indexNote})" class="btn">A</button>;
   </div>
   </div>
@@ -26,7 +26,7 @@ function getNoteTemplate(indexNote) {
 function getTrashNoteTemplate(indexTrashNote) {
     return `
     <div class="note">
-        <h3>${trashNotesTitles[indexTrashNote]}</h3>
+        <h3>${notesTitleTrash[indexTrashNote]}</h3>
         <p>${trashNotes[indexTrashNote]}</p>
     <div>
     <button onclick="deleteNote(${indexTrashNote})" class="btn">X</button>;

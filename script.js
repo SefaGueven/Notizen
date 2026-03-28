@@ -19,7 +19,7 @@ function renderNotes(){
     contentRef.innerHTML = "" ;
 
   for (let indexNote = 0; indexNote < notes.length; indexNote++) {
-      contentRef.innerHTML += getnoteTemplate(indexNote);
+      contentRef.innerHTML += getNoteTemplate(indexNote);
   }
 }
 
@@ -42,8 +42,8 @@ function renderTrashNotes(){
   }
 }
 
-
-function addNote(){                                                 // notizen hinzufügen
+ // notizen hinzufügen
+function addNote(){                                                
   let noteInputRef = document.getElementById('note_input') ;
   let noteTitleInputRef = document.getElementById('note_input_title') ;
 
@@ -94,7 +94,7 @@ function pushToTrashNote(indexNote) {                                 // notizen
 function deleteNote(indexPushTrashNote) {
   trashNotes.splice(indexPushTrashNote, 1,);
   renderNotes();
-  renderPushTrashNotes();
+  renderTrashNotes();
 }
 function saveToLocalStorage() {
     localStorage.setItem("notes", JSON.stringify(notes));     // "stringify" wandelt ein Objekt oder Datenstruktur in einen Text im JSON-Format um.Stringify wandelt hier Array in String um.
