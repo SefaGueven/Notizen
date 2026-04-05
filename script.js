@@ -4,7 +4,7 @@ let notesTitles =[ 'Frucht', 'Arbeit'];
 let notes =[ 'Banana', 'Rasen'];
 
 let trashNotes = [];
-let notesTitleTrash = [];
+let trashNotesTitles = [];
 
 let archivNotesTitles = [];
 let archivNotes = [];
@@ -15,31 +15,22 @@ let allNotes={
   'notes' :[ 'Banana', 'Rasen'],
   'archivNotesTitles':[],
   'archivNotes' : [],
-  'notesTitleTrash' : [],
+  'trashNotesTitles' : [],
   'trashNotes':[]
 
 }
 
-
 function moveNote(indexNote,startKey,destinationKey){
 
-   let note = allNotes[startKey].splice(indexNote,1);
-   allNotes[destinationKey].push(note[0]);
-
-
-    let notesTitle = allNotes[startKey+"Titles"].splice(indexNote,1);
-     allNotes[destinationKey+"Titles"].push(notesTitle[0]);
-
-
-
+  let note = allNotes[startKey].splice(indexNote,1);
+  allNotes[destinationKey].push(note[0]);
+  let notesTitle = allNotes[startKey + "Titles"].splice(indexNote,1);
+  allNotes[destinationKey + "Titles"].push(notesTitle[0]);
 
     renderNotes();
     renderArchivNotes();
     renderTrashNotes();
-
 }
-
-
 
 function renderNotes(){
 
@@ -70,11 +61,9 @@ function renderTrashNotes(){
   }
 }
 
- // notizen hinzufügen
 function addNote(){                                                
   let noteInputRef = document.getElementById('note_input') ;
   let noteTitleInputRef = document.getElementById('note_input_title') ;
-
   let noteInput = noteInputRef.value;                               //eingabe auslesen
   let noteTitle = noteTitleInputRef.value;
 
@@ -85,8 +74,6 @@ function addNote(){
 notes.push(noteInput);     
 notesTitles.push(noteTitle);                                        //eingabe Notizen hinzufügen 
 
-saveToLocalStorage();
-
 renderNotes(); 
                                                    // eingabe anzeigen lassen
 noteTitleInputRef.value = "";
@@ -94,11 +81,11 @@ noteInputRef.value = "";
 
 }
 
-
 function deleteNote(indexTrashNote) {
   allNotes.trashNotes.splice(indexTrashNote, 1,);
-  allNotes.trashNotesTitle.splice(indexTrashNote, 1,);
+  allNotes.trashNotesTitles.splice(indexTrashNote, 1,);
   
   renderNotes();
   renderTrashNotes();
+  renderArchivNotes();
 }

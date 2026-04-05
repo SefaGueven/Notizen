@@ -9,7 +9,7 @@ function getNoteTemplate(indexNote) {
     <button onclick="moveNote(${indexNote},'notes','archivNotes')" class="btn">A</button>;
   </div>
   </div>
-   ` }
+   ` ;}
 
    function getArchivNoteTemplate(indexArchivNote) {
     return `
@@ -21,16 +21,16 @@ function getNoteTemplate(indexNote) {
     <button onclick="moveNote(${indexArchivNote},'archivNotes','notes'))" class="btn">N</button>;
   </div>
   </div>
-   ` }
+   `; }
    
 function getTrashNoteTemplate(indexTrashNote) {
     return `
     <div class="note">
-        <h3>${allNotes.notesTitleTrash[indexTrashNote]}</h3>
+        <h3>${allNotes.trashNotesTitles[indexTrashNote]}</h3>
         <p>${allNotes.trashNotes[indexTrashNote]}</p>
     <div>
     <button onclick="deleteNote(${indexTrashNote})" class="btn">X</button>;
     <button onclick="moveNote(${indexTrashNote},'trashNotes','notes')" class="btn">N</button>;
   </div>
   </div>
-   ` }
+   ` ;}
