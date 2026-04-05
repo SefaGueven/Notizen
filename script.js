@@ -86,6 +86,7 @@ function deleteNote(indexTrashNote) {
   allNotes.trashNotesTitles.splice(indexTrashNote, 1,);
   
   renderNotes();
+   renderArchivNotes();
   renderTrashNotes();
-  renderArchivNotes();
+ 
 }
